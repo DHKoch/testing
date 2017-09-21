@@ -8,10 +8,10 @@ int main(void)
 	printf("Enter the input string\n");
 	scanf("%s",s);
 	ln = strlen(s);
-	*dyn_s = (char*)malloc(strlen(s)+1);
+	dyn_s = (char*)malloc(strlen(s)+1);
 	dyn_s = s;
 	dyn_s[strlen(s)]='\0';
-	printf(dyn_s);
+	printf("%s",dyn_s);
 	return 0;
 }
 
