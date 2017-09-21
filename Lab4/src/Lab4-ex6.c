@@ -2,6 +2,7 @@
 #include <stdlib.h>
 int main(void) 
 {
+
 	char *ch;
 	ch=malloc(sizeof(char)*2);    
 	ch[1]='3';
