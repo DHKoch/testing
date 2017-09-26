@@ -5,6 +5,7 @@ int main(void)
 {
 	char *s, *dyn_s;
 	int ln;
+	s = malloc(sizeof(char)*100);
 	printf("Enter the input string\n");
 	scanf("%s",s);
 	ln = strlen(s);
