@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <sstream>
 //#include <stdio.h>
 #include <cstdlib>
 
@@ -27,7 +28,7 @@ class Signal{
 		void do_center();
 		void do_normal();
 		void do_stats();
-		void print_to_file();
+		void print_to_file(char* output);
 		void sig_info();
 };
 
@@ -132,20 +133,20 @@ void Signal::do_stats(){
 	cout << "Average: " << average << "maximum: " << max_val << endl;
 }
 
-void Signal::print_to_file(){
+void Signal::print_to_file(char* filename){
 	std::ofstream myfile;
-	char filename[12] = "OutPut.txt";
+	
 	myfile.open(filename);
 	if(!myfile.is_open()){
 		cout << "error file not opened" << endl;
 	}
 	myfile << length;
 	myfile << ' ';
-	myfile << average;
-	myfile << '\n';
+	myfile << max_val;
+	myfile << '\n' << endl;
 	for(int i = 0; i<length;i++){
-		myfile << raw_data[i];
-		myfile << '\n';
+		myfile << raw_data[i] << '\n' << endl;
+		
 	}
 	myfile.close();
 }
@@ -169,39 +170,45 @@ int main(int argc, char* argv[]){
 	char filename[30];
 	int i = 1;
 	Signal* sig1;
-	
-	if((argv[i][0] == '-') && (argv[i][1] == 'n')){
-		i++;
-		if(argv[i] == NULL){
-			cout << "error!" << endl;
-			return 0;
-		}
-		filenum = std::atoi(argv[i]);
-		if(filenum <= 0){
-			cout << "error, file number cannot be negative" << endl;
-			return 0;
-		}
-		Signal sig(filenum);
-		sig1 = &sig;
-	}
-	else if((argv[i][0] == '-') && (argv[i][1] == 'f')){
-		i++;
-		if(argv[i] == NULL){
-			cout << "error!" << endl;
-			return 0;
-		}
-		stpcpy(filename,argv[i]);
-		Signal sig(filename);
-		sig1 = &sig;
-	}	
-	else{
+	if(argc == 1){
 		Signal sig;
 		sig1 = &sig;
+	}
+	else{
+		if((argv[i][0] == '-') && (argv[i][1] == 'n')){
+			i++;
+			if(argv[i] == NULL){
+				cout << "error!" << endl;
+				return 0;
+			}
+			filenum = std::atoi(argv[i]);
+			if(filenum <= 0){
+				cout << "error, file number cannot be negative" << endl;
+				return 0;
+			}
+			Signal sig(filenum);
+			sig1 = &sig;
+		}
+		else if((argv[i][0] == '-') && (argv[i][1] == 'f')){
+			i++;
+			if(argv[i] == NULL){
+				cout << "error!" << endl;
+				return 0;
+			}
+			stpcpy(filename,argv[i]);
+			Signal sig(filename);
+			sig1 = &sig;
+		}	
+		else{
+			cout << "error, incorrect command line inputs" << endl;
+			return 0;
+		}
 	}
 	int choice = 0;
 	int j = 1;
 	double offset = 0.0;
 	double scale = 0.0;
+	char output[30];
 	while(j == 1){
 		cout << "Please select a action to preform:" << endl
 		<< "1.) Offset:" << endl
@@ -244,8 +251,9 @@ int main(int argc, char* argv[]){
 			break;
 			
 			case 6:
-			cout << "Printing to OutPut.txt ..." << endl;
-			sig1->print_to_file();
+			cout << "Please enter the name of the output file:" << endl;
+			cin >> output;
+			sig1->print_to_file(output);
 			break;
 			
 			case 7:
