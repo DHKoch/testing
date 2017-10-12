@@ -166,7 +166,9 @@ build
 ###################################
 # App Specific 
 ###################################
-
+# Some executates and it's related files.
+*.exe
+*.stackdump
 
 
 
