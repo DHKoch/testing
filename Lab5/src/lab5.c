@@ -73,7 +73,7 @@ int main(int argc, char* argv[]){
 		}
 		
 		else if((argv[i][0] == '-') && (argv[i][1] == 'C')){
-			printf("here 4\n");
+			
 			//do center flag is set
 			
 			centerflag = 1;
@@ -81,7 +81,6 @@ int main(int argc, char* argv[]){
 		
 		else if((argv[i][0] == '-') && (argv[i][1] == 'N')){
 			//do normal flag is set
-			printf("here 3\n");
 
 			normalflag = 1;
 		}
@@ -160,13 +159,13 @@ int main(int argc, char* argv[]){
 		int max = find_max(array); //max is needed for the save stats file
 		save_stats(average,max,outFile);
 	}
-	printf("here1\n");
+	
 	if(normalflag == 1){
-		printf("here\n");
+		
 		//does normal operations
 		sprintf(outFile,"Normal_data_%02d.txt",fileNum);
 		int maxval = find_maxval(fileNum); //max val is needed to normalize
-		printf("Maxval: %d\n",maxval);
+		
 		save_normal(array,maxval,outFile);
 	}
 	
