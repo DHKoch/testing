@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -26,13 +27,35 @@ int main()
 	
 	string s4(s1);
 	
-	cout << s1 << endl
-		 << s2 << endl
-		 << s3 << endl
-		 << s4 << endl;
+	cout << "s1:" << s1 << endl
+		 << "s2:" << s2 << endl
+		 << "s3:" << s3 << endl
+		 << "s4:" << s4 << endl;
 	
 	s1 = s2 + s3;
 	cout << s1 << endl;
+	
+//my examples
+
+	filebuf fp;
+	fp.open("words.txt",std::ios::out);
+	ostream os(&fp);
+	cout << "writing s3: "<< s3 << " to the file words.txt" << endl;
+	os << s3; //writes the string s3 to the file
+	fp.close();
+	fp.open("words.txt",std::ios::in);
+	istream is(&fp);
+	cout << "reading words.txt into s1" << endl;
+	is >> s1; //copies what is in the file to string s1;
+	fp.close();
+	cout << "String s1 is now " << s1 << endl;
+	
+	fp.open("words.txt",std::ios::in);
+	istream is2(&fp);
+	getline(is2,s2);
+	fp.close();
+	cout << "copying words.txt into s2 using get line... " << endl 
+	<< "s2 is now " << s2 << endl;
 
 // ***********************************************************************
 // Try all the operations in Table 3.2 using the strings above and
