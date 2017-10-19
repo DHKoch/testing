@@ -127,7 +127,7 @@ int main()
 			c = toupper(c);
 		}
 		else if(isupper(c)){
-			c = tolower(c)
+			c = tolower(c);
 		}
 		if(isspace(c)){
 			c = '.';
