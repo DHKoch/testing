@@ -61,5 +61,32 @@ int main()
 // or define new ones. Try different types.
 // ***********************************************************************
 
+	vector<int> v1;
+	vector<int> v2(v1);
+	vector<int> v3 = v1;
+	vector<int> v4(5,2);
+	vector<int> v5(5);
+	vector<int> v6{1,2,3,4,5,6};
+	vector<int> v7 = {7,8,9,0};
+	
+	cout << "exercise 3.14..." << endl;
+	
+	string x;
+	int a = 0;
+	int i = 0;
+	while(i<5){
+		cout << "enter a number: " << endl;
+		cin >> x;
+		sscanf(x.c_str(), "%d" , &a);
+		v1.push_back(a);
+		i++;
+	}
+	cout << "printing out the values of the vector..." << endl;
+	for(i = 0;i<5;i++){
+		cout << v1.at(i) << endl;
+	}
+	
+	
+
 	return 0;
 }
