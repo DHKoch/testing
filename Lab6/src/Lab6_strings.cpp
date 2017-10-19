@@ -36,6 +36,7 @@ int main()
 	cout << s1 << endl;
 	
 //my examples
+	cout << "Table 3.2 examples" << endl << endl;
 
 	filebuf fp;
 	fp.open("words.txt",std::ios::out);
@@ -54,8 +55,55 @@ int main()
 	istream is2(&fp);
 	getline(is2,s2);
 	fp.close();
+	cout << endl;
 	cout << "copying words.txt into s2 using get line... " << endl 
 	<< "s2 is now " << s2 << endl;
+	
+	if(!s1.empty()){
+		cout << endl;
+		cout << "s1 is not empty and contains:" << s1 << endl;
+	}
+	
+	cout << endl;
+	int i = 0;
+	for(i = 0; i<s2.size();i++){
+		cout << s2[i];
+	}
+	
+	cout << endl;
+	
+	string s5("Test");
+	string s6("Code");
+	
+	cout << "s5: " << s5 << " s6: " << s6 << " s5+s6: " << s5+s6 << endl;
+	
+	cout << "setting s5 = s6 .." << endl;
+	s5 = s6;
+	cout << "s5: " << s5 << " s6: " << s6 << endl;
+	
+	
+	if(s5 == s6){
+		cout << "s5 and s6 are equal!" << endl;
+	}
+	
+	if(s1 != s5){
+		cout << "s1 is not equal to s5" << endl;
+	}
+	string s7("ABCD");
+	string s8("EFGH");
+	if(s7>s8){
+		cout << s7 << " > " << s8 << endl;
+	}
+	if(s7<s8){
+		cout << s7 << " < " << s8 << endl;
+	}
+	if(s7>=s8){
+		cout << s7 << " >= " << s8 << endl;
+	}
+	if(s7<=s8){
+		cout << s7 << " <= " << s8 << endl;
+	}
+	
 
 // ***********************************************************************
 // Try all the operations in Table 3.2 using the strings above and
@@ -73,6 +121,21 @@ int main()
 	cout << "\nEnter some text, finish it with an &:" << endl;
 	getline(cin, line, '&');	// the delimiter can be any character
 	cout << line << endl;
+	
+	for(auto &c : line){
+		if(islower(c)){
+			c = toupper(c);
+		}
+		else if(isupper(c)){
+			c = tolower(c)
+		}
+		if(isspace(c)){
+			c = '.';
+		}
+	}
+	cout << line << endl;
+	
+	
 
 // ***********************************************************************
 // Use a "Range for" (Lippman, page 93) and operations in table 3.3 to:
