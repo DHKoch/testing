@@ -70,7 +70,6 @@ int main()
 	vector<int> v7 = {7,8,9,0};
 	
 	cout << "exercise 3.14..." << endl;
-	
 	string x;
 	int a = 0;
 	int i = 0;
@@ -81,12 +80,68 @@ int main()
 		v1.push_back(a);
 		i++;
 	}
+	cout << endl;
 	cout << "printing out the values of the vector..." << endl;
-	for(i = 0;i<5;i++){
+	for(i = 0;i<v1.size();i++){
 		cout << v1.at(i) << endl;
 	}
 	
+	cout << "exercise 3.15..." << endl << endl;
+	vector<string> v9;
+	string y;
+	i = 0;
+	while(i<5){
+		cout << "enter a string: " << endl;
+		cin >> y;
+		v9.push_back(y);
+		i++;
+	}
+	for(i = 0;i<v9.size();i++){
+		cout << v9.at(i) << endl;
+	}
 	
-
+	cout << "Table 3.5 functions" << endl;
+	vector<string> v10;
+	if(v10.empty()){
+		cout << "vector v10 is empty" << endl;
+	}
+	if(!v9.empty()){
+		cout << "vector v9 is not empty" << endl;
+	}
+	cout << "the size of the vector v9 is: " << v9.size() << endl;
+	cout << "the third value in the vector v9 is: " << v9[3] << endl;
+	cout << endl;
+	cout << "setting v10 equal to v9 ..." << endl;
+	v10 = v9;
+	cout << "v9 is:" << endl;
+	for(i = 0;i<v9.size();i++){
+		cout << v9.at(i) << endl;
+	}
+	cout << endl;
+	cout << "v10 is:" << endl;
+	for(i = 0;i<v10.size();i++){
+		cout << v10.at(i) << endl;
+	}
+	if(v10 == v9){
+		cout << "v10 and v9 are equal!" << endl << endl;
+	}
+	if(v1 != v7){
+		cout << "v1 is not wqual to v7" << endl;
+	}
+	vector<int> vA = {1,2,3};
+	vector<int> vB = {4,3,2};
+	if(vA>vB){
+		cout << "vA > vB" << endl;
+	}
+	if(vA<vB){
+		cout << "vA < vB" << endl;
+	}
+	if(vA<=vB){
+		cout << "vA <= vB" << endl;
+	}
+	if(vA>=vB){
+		cout << "vA >= vB" << endl;
+	}
+	
 	return 0;
 }
