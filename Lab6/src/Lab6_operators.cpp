@@ -26,6 +26,7 @@ public:
 	bool operator>(const Lab6 &x) const;
 	void operator+(const Lab6 &x);
 	void operator*(int factor);
+	void operator=(const Lab6 &x);
 	void Printvals();
 	// constructor(s)
 	// destructor
@@ -57,6 +58,12 @@ void Lab6::Printvals()
 	cout << "\na[0] = " << a[0] << ", a[1] = " << a[1] << endl;
 }
 
+void Lab6::operator=(const Lab6 &x){
+	a[0] = x.a[0];
+	a[1] = x.a[1];
+
+}
+
 // -------- Operators can be Non-member functions -------------------
 Lab6 operator+(const Lab6 &lhs, const Lab6 &rhs)
 {
@@ -67,6 +74,8 @@ Lab6 operator+(const Lab6 &lhs, const Lab6 &rhs)
 	return sum;
 }
 
+
+
 // Main function. Shows a few examples about using the operators.
 int main()
 {
@@ -76,7 +85,7 @@ int main()
 	obj1.a[0] = 1; obj1.a[1] = 5;
 	obj2.a[0] = 10; obj2.a[1] = 20;
 	
-	if(obj1 > obj2)	// normal expression. Which operator is being called?
+	if(obj1 > obj2)	// normal expression. Which operator is being called? the membr function operator>
 		cout << "\nObject 1 is bigger than object 2" << endl;
 	else
 		cout << "\nObject 1 is not bigger than object 2" << endl;
@@ -87,7 +96,7 @@ int main()
 		cout << "\nObject 1 is not bigger than object 2" << endl;
 	
 	
-	if(obj2 > obj1)	// Which operator is being called?
+	if(obj2 > obj1)	// Which operator is being called? member function operator>
 		cout << "\nObject 2 is bigger than object 1" << endl;
 	else
 		cout << "\nObject 2 is not bigger than object 1" << endl;
@@ -101,30 +110,34 @@ int main()
 	obj1.Printvals();
 	obj2.Printvals();
 	
-	obj1 + obj2;	// normal expression. Which operator is being called?
-	// obj1.operator+(obj2);	// equivalent, try it out
+	//obj1 + obj2;	// normal expression. Which operator is being called? member function operator+
+	obj1.operator+(obj2);	// equivalent, try it out
 	obj1.Printvals();
 	obj2.Printvals();
 	
-	obj2 + obj1;	// normal expression. Which operator is being called?
-	// obj2.operator+(obj1);	// equivalent, try it out
+	//obj2 + obj1;	// normal expression. Which operator is being called? member function operator+
+	obj2.operator+(obj1);	// equivalent, try it out
 	obj1.Printvals();
 	obj2.Printvals();
 
 	cout << "------------------------------------------------------------------" << endl;
-	obj1*2;		// Would 2*obj1 work? Give it a try.
-	obj2*f;		// Would f*obj2 work? Give it a try.
+	obj1*2;		// Would 2*obj1 work? Give it a try. no
+	obj2*f;		// Would f*obj2 work? Give it a try. no
+	//2*obj1;
+	//f*obj2;
 	obj1.Printvals();
 	obj2.Printvals();
 	
 	cout << "------------------------------------------------------------------" << endl;
-	// Which operator is being called next?
-	obj3 = operator+(obj1, obj2);	// Would  obj3 = obj2 + obj1; work?
+	// Which operator is being called next? non member function operator+
+	//obj3 = operator+(obj1, obj2);	// Would  obj3 = obj2 + obj1; work? no, because no operator=
+	obj3.operator=(operator+(obj2, obj1));
 	obj1.Printvals();				// If not, how could you make it work?
 	obj2.Printvals();
 	obj3.Printvals();
 	
-	obj3 = operator+(obj2, obj1);	// is this the same as before?
+	obj3 = operator+(obj2, obj1);	// is this the same as before? this is the same as obj3 = operator+(obj1, obj2)
+									//order doesnt matter for this function
 	obj1.Printvals();
 	obj2.Printvals();
 	obj3.Printvals();
