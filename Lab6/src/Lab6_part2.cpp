@@ -17,14 +17,14 @@ class Signal{
 	public:
 		Signal();
 		Signal(int filenum);
-		Signal(char* filename);
+		Signal(string filename);
 		~Signal();
 		void do_offset(double offset);
 		void do_scale(double scale);
 		void do_center();
 		void do_normal();
 		void do_stats();
-		void print_to_file(char* output);
+		void print_to_file(string output);
 		void sig_info();
 		void operator+(double offset);
 		void operator*(double scale);
@@ -65,7 +65,7 @@ Signal::Signal(int filenum){
 }
 
 //prarmetric constructor
-Signal::Signal(char* filename){
+Signal::Signal(string filename){
 	std::ifstream myfile;
 	//opens the file with the name set by the user
 	myfile.open(filename);
@@ -110,7 +110,12 @@ double Signal::getaverage(){
 	for(int i = 0;i<=length;i++){
 		total += S[i]; // totals all values in signal
 	}
+	if(total == 0){
+		return 0;
+	}
+	else{
 	return(total/(double)length);
+	}
 }
 
 void Signal::do_offset(double offset){
@@ -136,7 +141,7 @@ void Signal::do_stats(){
 	cout << "Average: " << average << "maximum: " << max_val << endl;
 }
 
-void Signal::print_to_file(char* filename){
+void Signal::print_to_file(string filename){
 	std::ofstream myfile; //  ofstrema so we can write to file	
 	myfile.open(filename); // opens file
 	if(!myfile.is_open()){
@@ -174,7 +179,7 @@ void Signal::sig_info(){
 
 int main(int argc, char* argv[]){
 	int filenum = 0;
-	char filename[30];
+	
 	int i = 1;
 	Signal* sig1; // pointer of Signal type used for the program
 	if(argc == 1){ // case for no command line arguments
@@ -202,7 +207,7 @@ int main(int argc, char* argv[]){
 				cout << "error!" << endl;
 				return 0;
 			}
-			strcpy(filename,argv[i]); // copies input file name into filename variable
+			string filename(argv[i]); // copies input file name into filename variable
 			Signal sig(filename); // calls parametric constructor that handles filename
 			sig1 = &sig; // sets the pointer to the adress of the signal created 
 		}	
@@ -215,7 +220,7 @@ int main(int argc, char* argv[]){
 	int j = 1;
 	double offset = 0.0;
 	double scale = 0.0;
-	char output[30];
+	string output;
 	while(j == 1){ // loop that reprints menu and allows new selection
 		cout << "Please select a action to preform:" << endl
 		<< "1.) Offset:" << endl
@@ -261,10 +266,7 @@ int main(int argc, char* argv[]){
 			case 6:
 			cout << "Please enter the name of the output file:" << endl;
 			cin >> output;
-			if(output == NULL){ // error check for file name
-				cout << "error name cannot be null, please try again" << endl;
-				break;
-			}
+			
 			sig1->print_to_file(output);
 			break;
 			
