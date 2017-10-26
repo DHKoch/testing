@@ -85,7 +85,7 @@ int main()
 	obj1.a[0] = 1; obj1.a[1] = 5;
 	obj2.a[0] = 10; obj2.a[1] = 20;
 	
-	if(obj1 > obj2)	// normal expression. Which operator is being called? the membr function operator>
+	if(obj1 > obj2)	// normal expression. Which operator is being called? the membr function operator
 		cout << "\nObject 1 is bigger than object 2" << endl;
 	else
 		cout << "\nObject 1 is not bigger than object 2" << endl;
@@ -96,7 +96,7 @@ int main()
 		cout << "\nObject 1 is not bigger than object 2" << endl;
 	
 	
-	if(obj2 > obj1)	// Which operator is being called? member function operator>
+	if(obj2 > obj1)	// Which operator is being called? member function operator
 		cout << "\nObject 2 is bigger than object 1" << endl;
 	else
 		cout << "\nObject 2 is not bigger than object 1" << endl;
@@ -121,7 +121,7 @@ int main()
 	obj2.Printvals();
 
 	cout << "------------------------------------------------------------------" << endl;
-	obj1*2;		// Would 2*obj1 work? Give it a try. no
+	obj1*2;		// Would 2*obj1 work? Give it a try. no, the order its called does matter
 	obj2*f;		// Would f*obj2 work? Give it a try. no
 	//2*obj1;
 	//f*obj2;
@@ -132,7 +132,7 @@ int main()
 	// Which operator is being called next? non member function operator+
 	//obj3 = operator+(obj1, obj2);	// Would  obj3 = obj2 + obj1; work? no, because no operator=
 	obj3.operator=(operator+(obj2, obj1));
-	obj1.Printvals();				// If not, how could you make it work?
+	obj1.Printvals();				// If not, how could you make it work? create a define operator =
 	obj2.Printvals();
 	obj3.Printvals();
 	

@@ -61,6 +61,7 @@ int main()
 // or define new ones. Try different types.
 // ***********************************************************************
 
+	//new vectors
 	vector<int> v1;
 	vector<int> v2(v1);
 	vector<int> v3 = v1;
@@ -68,64 +69,64 @@ int main()
 	vector<int> v5(5);
 	vector<int> v6{1,2,3,4,5,6};
 	vector<int> v7 = {7,8,9,0};
-	
+	//exercise 3.14
 	cout << "exercise 3.14..." << endl;
 	string x;
 	int a = 0;
 	int i = 0;
 	while(i<5){
 		cout << "enter a number: " << endl;
-		cin >> x;
-		sscanf(x.c_str(), "%d" , &a);
-		v1.push_back(a);
+		cin >> x; //read string from user
+		sscanf(x.c_str(), "%d" , &a); //place sstring into integer
+		v1.push_back(a); //place integer in vector
 		i++;
 	}
 	cout << endl;
 	cout << "printing out the values of the vector..." << endl;
 	for(i = 0;i<v1.size();i++){
-		cout << v1.at(i) << endl;
+		cout << v1.at(i) << endl; //print out each value in vector
 	}
-	
+	//exercise 3.15
 	cout << "exercise 3.15..." << endl << endl;
 	vector<string> v9;
 	string y;
 	i = 0;
 	while(i<5){
 		cout << "enter a string: " << endl;
-		cin >> y;
-		v9.push_back(y);
+		cin >> y; //read string from user
+		v9.push_back(y); //place string into vector
 		i++;
 	}
 	for(i = 0;i<v9.size();i++){
-		cout << v9.at(i) << endl;
+		cout << v9.at(i) << endl; //display vector values
 	}
-	
+	//table 3.5 functions
 	cout << "Table 3.5 functions" << endl;
 	vector<string> v10;
-	if(v10.empty()){
+	if(v10.empty()){ //displays message if empty
 		cout << "vector v10 is empty" << endl;
 	}
-	if(!v9.empty()){
+	if(!v9.empty()){ //displays message if not empty
 		cout << "vector v9 is not empty" << endl;
 	}
-	cout << "the size of the vector v9 is: " << v9.size() << endl;
-	cout << "the third value in the vector v9 is: " << v9[3] << endl;
+	cout << "the size of the vector v9 is: " << v9.size() << endl; //use .size() operator 
+	cout << "the third value in the vector v9 is: " << v9[3] << endl; //shows value at v9[3]
 	cout << endl;
 	cout << "setting v10 equal to v9 ..." << endl;
-	v10 = v9;
+	v10 = v9; //v10 is now a copy of v9
 	cout << "v9 is:" << endl;
 	for(i = 0;i<v9.size();i++){
-		cout << v9.at(i) << endl;
+		cout << v9.at(i) << endl; //display v9
 	}
 	cout << endl;
 	cout << "v10 is:" << endl;
 	for(i = 0;i<v10.size();i++){
-		cout << v10.at(i) << endl;
+		cout << v10.at(i) << endl; //display v10
 	}
-	if(v10 == v9){
+	if(v10 == v9){//display if v9 is the same as v10
 		cout << "v10 and v9 are equal!" << endl << endl;
 	}
-	if(v1 != v7){
+	if(v1 != v7){ //display if v1 is not the same as v7
 		cout << "v1 is not wqual to v7" << endl;
 	}
 	vector<int> vA = {1,2,3};

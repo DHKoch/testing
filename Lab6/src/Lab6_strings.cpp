@@ -40,26 +40,27 @@ int main()
 
 	filebuf fp;
 	fp.open("words.txt",std::ios::out);
-	ostream os(&fp);
+	ostream os(&fp); //sets output stream variable os to the file
 	cout << "writing s3: "<< s3 << " to the file words.txt" << endl;
 	os << s3; //writes the string s3 to the file
 	fp.close();
 	fp.open("words.txt",std::ios::in);
-	istream is(&fp);
+	istream is(&fp); //sets new input stream to the file
 	cout << "reading words.txt into s1" << endl;
 	is >> s1; //copies what is in the file to string s1;
 	fp.close();
 	cout << "String s1 is now " << s1 << endl;
 	
 	fp.open("words.txt",std::ios::in);
-	istream is2(&fp);
-	getline(is2,s2);
+	istream is2(&fp); //new input stream
+	getline(is2,s2); //using get line to read an entire line
 	fp.close();
 	cout << endl;
 	cout << "copying words.txt into s2 using get line... " << endl 
 	<< "s2 is now " << s2 << endl;
 	
-	if(!s1.empty()){
+	if(!s1.empty()){ //checks to see if s1 is empty
+		//if not empty print message
 		cout << endl;
 		cout << "s1 is not empty and contains:" << s1 << endl;
 	}
@@ -67,6 +68,7 @@ int main()
 	cout << endl;
 	int i = 0;
 	for(i = 0; i<s2.size();i++){
+		//displays each character fo the string using string[i] notation
 		cout << s2[i];
 	}
 	
@@ -75,32 +77,38 @@ int main()
 	string s5("Test");
 	string s6("Code");
 	
-	cout << "s5: " << s5 << " s6: " << s6 << " s5+s6: " << s5+s6 << endl;
+	cout << "s5: " << s5 << " s6: " << s6 << " s5+s6: " << s5+s6 << endl; // using + operator
 	
 	cout << "setting s5 = s6 .." << endl;
-	s5 = s6;
+	s5 = s6; // setting strings equal to each other
 	cout << "s5: " << s5 << " s6: " << s6 << endl;
 	
 	
 	if(s5 == s6){
+		//if the are equal print message
 		cout << "s5 and s6 are equal!" << endl;
 	}
 	
 	if(s1 != s5){
+		//if s1 and s5 are not eqaul print message
 		cout << "s1 is not equal to s5" << endl;
 	}
 	string s7("ABCD");
 	string s8("EFGH");
 	if(s7>s8){
+		//if s7 is bigger than s8 print
 		cout << s7 << " > " << s8 << endl;
 	}
 	if(s7<s8){
+		//if s7 is less than s8 print message
 		cout << s7 << " < " << s8 << endl;
 	}
 	if(s7>=s8){
+		//if s7 is bigger than or equal s8 print
 		cout << s7 << " >= " << s8 << endl;
 	}
 	if(s7<=s8){
+		//if s7 is less than or equal s8 print
 		cout << s7 << " <= " << s8 << endl;
 	}
 	
@@ -123,17 +131,18 @@ int main()
 	cout << line << endl;
 	
 	for(auto &c : line){
-		if(islower(c)){
+		//loops thorugh each charcter of the string 
+		if(islower(c)){//if lowecase change to upper
 			c = toupper(c);
 		}
-		else if(isupper(c)){
+		else if(isupper(c)){//if upper case change to lower
 			c = tolower(c);
 		}
-		if(isspace(c)){
+		if(isspace(c)){//if 'space' set charcter to '.'
 			c = '.';
 		}
 	}
-	cout << line << endl;
+	cout << line << endl; //print oput new string
 	
 	
 

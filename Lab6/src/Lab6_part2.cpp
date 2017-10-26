@@ -41,17 +41,17 @@ Signal::Signal(){
 //parametric constructor 
 Signal::Signal(int filenum){
 	std::ifstream myfile;
-	cout << "here" << endl;
+	
 	char filename[30];
 	// uses file num to open a select file
 	int n = sprintf(filename,"Raw_data_%02d.txt",filenum);
 	myfile.open(filename);
-	cout << "here1" << endl;
+	
 	if(!myfile.is_open()){
 		//checks to see if file was opened
 		cout << "error file not opened" << endl;
 	}
-	cout << "here2" << endl;
+	
 	//reads in all the values
 	myfile >> length;
 	myfile >> max_val;
@@ -88,14 +88,14 @@ Signal::Signal(string filename){
 void Signal::operator+(double offset){
 	int i = 0;
 	for(i=0;i<length;i++){
-		S[i] += offset;
+		S[i] += offset; //add offset to each vector value
 	}
 }
 
 void Signal::operator*(double scale){
 	int i = 0;
 	for(i=0;i<length;i++){
-		S[i] *= scale;
+		S[i] *= scale; //multiply each vector value by scale
 	}
 }
 
@@ -110,8 +110,8 @@ double Signal::getaverage(){
 	for(int i = 0;i<=length;i++){
 		total += S[i]; // totals all values in signal
 	}
-	if(total == 0){
-		return 0;
+	if(length ==0){
+		return 0; //handles empty vector
 	}
 	else{
 	return(total/(double)length);
@@ -119,19 +119,27 @@ double Signal::getaverage(){
 }
 
 void Signal::do_offset(double offset){
-	this->operator+(offset);
+	this->operator+(offset); //use + operator to add offset
+	average = getaverage();
+	max_val = getmax_val();
 }
 
 void Signal::do_scale(double scale){
-	this->operator*(scale);
+	this->operator*(scale); //use * operator to multiply 
+	average = getaverage();
+	max_val = getmax_val();
 }
 
 void Signal::do_center(){
-	this->operator+((average*(-1)));
+	this->operator+((average*(-1))); //subtracts average from each vzlue
+	average = getaverage();
+	max_val = getmax_val();
 }
 
 void Signal::do_normal(){
-	this->operator*((1/max_val));
+	this->operator*((1/max_val)); //divides by max_value
+	average = getaverage();
+	max_val = getmax_val();
 }
 void Signal::do_stats(){
 	//gets the current average and max_value
@@ -244,7 +252,7 @@ int main(int argc, char* argv[]){
 			case 2:
 			scale = 0.0;
 			cout << "Please enter a value to scale the signal by:";
-			cin >> scale;
+			cin >> scale; //read double from user
 			sig1->do_scale(scale);
 			break;
 			
@@ -266,7 +274,7 @@ int main(int argc, char* argv[]){
 			case 6:
 			cout << "Please enter the name of the output file:" << endl;
 			cin >> output;
-			
+			//read string from user
 			sig1->print_to_file(output);
 			break;
 			
