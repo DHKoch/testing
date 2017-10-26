@@ -131,6 +131,15 @@ int main()
 	}
 	vector<int> vA = {1,2,3};
 	vector<int> vB = {4,3,2};
+	
+	for(auto &i:vA){
+		cout << i << endl;
+		i = 10;
+	}
+	for(auto i:vA){
+		cout << i << endl;
+	}
+	
 	if(vA>vB){
 		cout << "vA > vB" << endl;
 	}

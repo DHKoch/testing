@@ -8,13 +8,14 @@ using namespace std;
 
 class Signal{
 	private:
+		
+	public:
 		int length;
 		vector<double>S;
 		double average;
 		double max_val;
 		double getaverage();
 		double getmax_val();
-	public:
 		Signal();
 		Signal(int filenum);
 		Signal(string filename);
@@ -185,11 +186,30 @@ void Signal::sig_info(){
 	cout << "Length: " << length << "Maximum: " << max_val << "Average: " << average << endl; 
 }
 
+Signal operator+(Signal sig1, Signal sig2){
+	int i = 0;
+	Signal sig3;
+	
+	if(sig1.length != sig2.length){
+		return sig3;
+	}
+	else{
+		for(i=0;i<=sig1.length;i++){
+		sig3.S.push_back(sig1.S[i] + sig2.S[i]);
+		cout << sig3.S[i] << endl;
+		}
+		sig3.average = sig1.average + sig2.average;
+	}
+	sig3.max_val  = sig1.max_val;
+	return sig3;
+}
+
 int main(int argc, char* argv[]){
 	int filenum = 0;
 	
 	int i = 1;
 	Signal* sig1; // pointer of Signal type used for the program
+	Signal* sig2;
 	if(argc == 1){ // case for no command line arguments
 		Signal sig;
 		sig1 = &sig;
@@ -207,7 +227,9 @@ int main(int argc, char* argv[]){
 				return 0;
 			}
 			Signal sig(filenum);
+			Signal sigB(filenum);
 			sig1 = &sig;
+			sig2 = &sigB;
 		}
 		else if((argv[i][0] == '-') && (argv[i][1] == 'f')){
 			i++;
@@ -217,7 +239,9 @@ int main(int argc, char* argv[]){
 			}
 			string filename(argv[i]); // copies input file name into filename variable
 			Signal sig(filename); // calls parametric constructor that handles filename
+			Signal sigB(filename);
 			sig1 = &sig; // sets the pointer to the adress of the signal created 
+			sig2 = &sigB;
 		}	
 		else{ // case that handles wrong command line arguments
 			cout << "error, incorrect command line inputs" << endl;
@@ -229,6 +253,8 @@ int main(int argc, char* argv[]){
 	double offset = 0.0;
 	double scale = 0.0;
 	string output;
+	Signal sig3;
+	i = 0;
 	while(j == 1){ // loop that reprints menu and allows new selection
 		cout << "Please select a action to preform:" << endl
 		<< "1.) Offset:" << endl
@@ -238,7 +264,9 @@ int main(int argc, char* argv[]){
 		<< "5.) Normalize:" << endl
 		<< "6.) Print To File:" << endl
 		<< "7.) Signal Info:" << endl
-		<< "8.) Exit..." << endl;
+		<< "8.) Add two objects" << endl
+		<< "9.) Exit ..." << endl;
+		
 		cin >> choice;
 		
 		switch(choice){
@@ -284,6 +312,12 @@ int main(int argc, char* argv[]){
 			break;
 			
 			case 8:
+			cout << "adding two objects using non-member function ..." << endl;
+			sig3 = *sig1 + *sig2;
+			
+			break;
+			
+			case 9:
 			cout << "Exiting the program ..." << endl;
 			return 0;
 			break;
