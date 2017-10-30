@@ -187,7 +187,7 @@ void Signal::sig_info(){
 }
 
 Signal operator+(Signal sig1, Signal sig2){
-	int i = 0;
+	int i;
 	Signal sig3;
 	
 	if(sig1.length != sig2.length){
@@ -196,11 +196,17 @@ Signal operator+(Signal sig1, Signal sig2){
 	else{
 		for(i=0;i<=sig1.length;i++){
 		sig3.S.push_back(sig1.S[i] + sig2.S[i]);
-		cout << sig3.S[i] << endl;
+		cout << sig3.S.at(i) << endl;
 		}
-		sig3.average = sig1.average + sig2.average;
+		
 	}
-	sig3.max_val  = sig1.max_val;
+	if(sig1.max_val > sig2.max_val){
+		sig3.max_val = sig1.max_val;
+	}
+	else{
+		sig3.max_val = sig2.max_val;
+	}
+	sig3.average  = sig1.average + sig2.average;
 	return sig3;
 }
 
