@@ -41,6 +41,7 @@ Message::~Message(){
 }
 
 void Message::print_message(){
+	cout <<"\nYour Message is:" << endl;
 	cout << message << endl;
 }
 
@@ -90,52 +91,102 @@ string MorseCodeMessage::translate(string mes){
 }
 
 void MorseCodeMessage::print_message(){
+	cout << "\nYour message is:" << endl;
 	cout << message << endl;
+	cout << "Your message in morse code is:" << endl;
 	cout << morse << endl;
 }
 
-/*
 
 //work on this
 class MessageStack{
 	private:
-		vector<Message*>stack;
+		vector<Message*>stackV;
 	public:
-		MessageStack(Message obj);
+		MessageStack(Message* obj);
 		~MessageStack();
-		void Push(Message obj);
+		void Push(Message* obj);
 		void Pop();
 		void print_stack();
+};
+
+MessageStack::MessageStack(Message* obj){
+	stackV.push_back(obj);
 }
-*/
+
+MessageStack::~MessageStack(){
+	//nothing to free here
+}
+
+void MessageStack::Push(Message* obj){
+	stackV.push_back(obj);
+}
+
+void MessageStack::Pop(){
+	int index = stackV.size();
+	if(index<=1){
+		cout << "\ncannot remove items from empty stack" << endl;
+	}
+	else{
+	stackV.erase(stackV.begin()+index);
+	}
+}
+
+void MessageStack::print_stack(){
+	vector<Message*>::iterator iter;
+    for(iter = stackV.begin(); iter != stackV.end(); iter++) {
+	(*iter)->print_message();
+	}
+}
 
 int main(void){
 	int a = 0;
 	int choice = 0;
 	string msg;
-	MorseCodeMessage* M;
+	Message* M;
+	Message* temp = new Message("start of stack...");
+	MessageStack Stack(temp);
 	while(a==0){
 		cout << "which action would you like to preform?" << endl;
 		cout << "1.) Enter Message" << endl;
-		cout << "2.) Print Stack" << endl;
-		cout << "3.) Exit Program" << endl;
+		cout << "2.) Enter Message for Morse Code" << endl;
+		cout << "3.) Delete from Stack" << endl;
+		cout << "4.) Print stack" << endl;
+		cout << "5.) Exit Program" << endl;
 		cin >> choice;
 		cin.ignore();
 		switch(choice){
-			case 1:{
+			case 1:
+			{
 			cout << "Please enter a message:" << endl;
 			getline(cin,msg);
-			MorseCodeMessage temp(msg);
-			M = &temp;
+			M = new Message(msg);
 			M->print_message();
+			Stack.Push(M);
 			}
 			break;
 			
 			case 2:
-			cout << "here" << endl;
+			{
+			cout << "Please enter a message to be translated into morse code:" << endl;
+			getline(cin,msg);
+			M = new MorseCodeMessage(msg);
+			M->print_message();
+			Stack.Push(M);
+			}
 			break;
 			
 			case 3:
+			cout << "\nRemoving the last item on the stack..." << endl;
+			Stack.Pop();
+			break;
+			
+			case 4:
+			cout << "\nPrinting the stack..." << endl;
+			Stack.print_stack();
+			break;
+			
+			case 5:
 			cout << "Exiting Program..."<< endl;
 			return 0;
 			break;
