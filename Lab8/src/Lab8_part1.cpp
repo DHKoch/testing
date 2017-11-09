@@ -18,7 +18,7 @@ class BaseConic {
 		// Notice the default values. They don't need to be 0
 		BaseConic(double x0 = 0, double y0 = 0){x = x0; y = y0;}
 		virtual ~BaseConic(){};
-		void Move(double nx, double ny){x = nx; y = ny;}
+		virtual void Move(double nx, double ny){x = nx; y = ny;}
 		virtual double Area() = 0; // a pure virtual function ==> ABC
 		virtual void Resize();
 		virtual void display() = 0;
@@ -43,6 +43,7 @@ class Ellipse : public BaseConic {
 		void Rotate(double nang){angle += nang;}
 		virtual void display();
 		void Verticies();
+		virtual void Move(double nx, double ny, double nAngle);
 };
 
 // Notice the default values. Those are used if no parameter is given when
@@ -54,6 +55,15 @@ Ellipse::Ellipse(double x0=0,double y0=0,double a0=0,double b0=0,double an0=0) :
 	a = a0;
 	b = b0;
 	angle = an0;
+}
+
+void Ellipse::Move(double nx, double ny, double nAngle){
+	x = nx;
+	y = ny;
+	cout << "The new center is: (" << x << "," << y << ")" << endl;
+	this->Rotate(nAngle);
+	this->Verticies();
+	
 }
 
 void Ellipse::Verticies(){
@@ -149,6 +159,10 @@ int main(){
 	Circle C(0,0,4);
 	C.Inside(1,1);
 	C.Inside(10,10);
+	C.Move(1,1);
+	C.display();
+	T.Move(1,2,-1.5);
+	T.display();
 	//add more functions and more variables here
 	return 0;
 	
