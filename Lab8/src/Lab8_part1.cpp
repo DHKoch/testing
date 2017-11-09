@@ -144,6 +144,12 @@ int main(){
 	//new stuff added
 	Ellipse T(0,0,2,3,0);
 	T.Verticies();
+	T.Rotate(1.5);
+	T.Verticies();
+	Circle C(0,0,4);
+	C.Inside(1,1);
+	C.Inside(10,10);
+	//add more functions and more variables here
 	return 0;
 	
 }
