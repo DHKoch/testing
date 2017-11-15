@@ -20,14 +20,9 @@ class BaseConic {
 		virtual ~BaseConic(){};
 		virtual void Move(double nx, double ny){x = nx; y = ny;}
 		virtual double Area() = 0; // a pure virtual function ==> ABC
-		virtual void Resize();
-		virtual void display() = 0;
-		
+		virtual void display()=0;
 };
 
-void BaseConic::Resize(){
-	cout << "Base Conic cannot be resized" << endl;
-}
 
 class Ellipse : public BaseConic {
 	private:
@@ -38,7 +33,7 @@ class Ellipse : public BaseConic {
 	public:
 		Ellipse(double x0, double y0, double a0, double b0, double an0);
 		~Ellipse(){}
-		virtual void Resize(double na, double nb){a = na; b = nb;}
+		void Resize(double na, double nb){a = na; b = nb;}
 		virtual double Area() {return 3.1416*a*b;}
 		void Rotate(double nang){angle += nang;}
 		virtual void display();
@@ -92,7 +87,7 @@ class Circle : public BaseConic {
 		
 	public:
 		virtual double Area() {return 3.1416*r*r;}
-		virtual void Resize(double nr){r = nr;}
+		void Resize(double nr){r = nr;}
 		Circle(double x0=0,double y0=0,double r0=0) : BaseConic(x0,y0){r = r0;}
 		virtual void display();
 		void Inside(double xp, double yp);
@@ -151,18 +146,38 @@ int main(){
 	delete bptr2;
 	delete bptr4;
 	
+	
+	//cout << "\nCreating object of ABC" << endl;
+	//BaseConic B1(0,0);
+	//Cannot create a object of the ABC class 
+	
 	//new stuff added
+	cout << "New ellispe created... ellispe(0,0,2,3,0)\n" << endl;
 	Ellipse T(0,0,2,3,0);
+	cout << "Displaying verticies of ellipse" << endl << endl;
 	T.Verticies();
+	cout << "Rotating the ellispe by 1.5 radians" << endl << endl;
 	T.Rotate(1.5);
 	T.Verticies();
+	cout << "Moving the ellipse over 2 and up 1 and -1.5 radians..." << endl << endl;
+	T.Move(2,1,-1.5);
+	T.display();
+	cout << "\nNew circle created... circle(0,0,4)" << endl << endl;
 	Circle C(0,0,4);
+	cout << "checking if point (1,1) is inside the circle..." << endl;
 	C.Inside(1,1);
+	cout << "checking if point (10,10) is inside the circle..." << endl;
 	C.Inside(10,10);
+	cout << "Moving the circle over 1 and up 1" << endl;
 	C.Move(1,1);
 	C.display();
-	T.Move(1,2,-1.5);
-	T.display();
+	
+	BaseConic * B = &T;
+	BaseConic * B2 = &C;
+	
+	B->display();
+	B2->display();
+	
 	//add more functions and more variables here
 	return 0;
 	
