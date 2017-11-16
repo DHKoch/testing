@@ -56,13 +56,13 @@ Signal::Signal(int filenum){
 	myfile.open(filename);
 	try{
 		if(!myfile.is_open()){
-			throw 1;
+			throw 1; //throw integer if file is not open
 		}
 	}
 	catch(int k){
 		//checks to see if file was opened
 		cout << "error file not opened" << endl;
-		throw;
+		throw; //rethrow
 	}
 	//reads in all the values
 	myfile >> length;
@@ -83,13 +83,13 @@ Signal::Signal(string filename){
 	myfile.open(filename);
 	try{
 		if(!myfile.is_open()){
-			throw 1;
+			throw 1; //throw int is file is not open
 		}
 	}
 	catch(int k){
 		//checks to see if file was opened
 		cout << "error file not opened" << endl;
-		throw;
+		throw; //rethrow
 	}
 	//reads in vlaues
 	myfile >> length;
@@ -138,19 +138,19 @@ double Signal::getaverage(){
 
 void Signal::do_offset(double offset){
 	if(length == 0){
-		throw 1;
+		throw 1; //if signal is empty throw int
 	}
 	this->operator+(offset); //use + operator to add offset
 	average = getaverage();
 	max_val = getmax_val();
 }
 
-void Signal::do_scale(double scale) throw(int,char){
+void Signal::do_scale(double scale) throw(int,char){ 
 	if(length == 0){
-		throw 1;
+		throw 1;//if signal is empty throw int
 	}
 	if(scale == 0){
-		throw 'a';
+		throw 'a';//cannot scale by 0 throw char
 	}
 	this->operator*(scale); //use * operator to multiply 
 	average = getaverage();
@@ -159,7 +159,7 @@ void Signal::do_scale(double scale) throw(int,char){
 
 void Signal::do_center(){
 	if(length == 0){
-		throw 1;
+		throw 1; //if signal is empty throw int
 	}
 	this->operator+((average*(-1))); //subtracts average from each vzlue
 	average = getaverage();
@@ -168,7 +168,7 @@ void Signal::do_center(){
 
 void Signal::do_normal(){
 	if(length == 0){
-		throw 1;
+		throw 1; //if signal is empty throw int
 	}
 	this->operator*((1/max_val)); //divides by max_value
 	average = getaverage();
@@ -176,7 +176,7 @@ void Signal::do_normal(){
 }
 void Signal::do_stats(){
 	if(length == 0){
-		throw 1;
+		throw 1; //if signal is empty throw int
 	}
 	//gets the current average and max_value
 	average = getaverage();
@@ -187,7 +187,7 @@ void Signal::do_stats(){
 
 void Signal::print_to_file(string filename){
 	if(length == 0){
-		throw 1;
+		throw 1; //if signal is empty throw int
 	}
 	std::ofstream myfile; //  ofstrema so we can write to file	
 	myfile.open(filename); // opens file
@@ -222,7 +222,7 @@ double Signal::getmax_val(){
 // Prints the signal info
 void Signal::sig_info(){ 
 	if(length == 0){
-		throw 1;
+		throw 1; //if signal is empty throw int
 	}
 	cout << "Length: " << length << "Maximum: " << max_val << "Average: " << average << endl; 
 }
@@ -231,10 +231,10 @@ Signal operator+(Signal sig1, Signal sig2){
 	int i;
 	Signal sig3;
 	if(sig1.length == 0){
-		throw 'a';
+		throw 'a'; //if signal is empty throw int
 	}
 	if(sig1.length != sig2.length){
-		throw myClass();
+		throw myClass(); //if signal lengths do not match throw myClass object
 	}
 	else{
 		for(i=0;i<=sig1.length;i++){
@@ -285,6 +285,7 @@ int main(int argc, char* argv[]){
 				sig4 = &sigC;
 			}
 			catch(int p){
+				//catches rethrow from constructor
 				cout << "File not found" << endl;
 				return 0;
 			}
@@ -305,6 +306,7 @@ int main(int argc, char* argv[]){
 				sig4 = &sigC;
 			}
 			catch(int p){
+				//catches rethrow from constructor
 				cout << "File not found" << endl;
 				return 0;
 			}
@@ -359,7 +361,7 @@ int main(int argc, char* argv[]){
 			catch(int h){
 				cout << "Cannot perform operation on empty signal" << endl;
 			}
-			catch(...){//catch all handler
+			catch(...){//catch all handler, catches char thrown if the scale is 0
 				cout << "Cannot have a scale of 0" << endl;
 			}
 			break;
@@ -419,14 +421,14 @@ int main(int argc, char* argv[]){
 			case 8:
 			try{
 			cout << "adding two objects using non-member function ..." << endl;
-			sig3 = *sig1 + *sig2;
-			sig3 = *sig1 + *sig4;
+			sig3 = *sig1 + *sig2;	//adding copy of signal 1 from selected file
+			sig3 = *sig1 + *sig4; //adding signal given by user and signal from Raw_data_01.txt file
 			}
 			catch(char h){
 				cout << "Cannot perform operation on empty signal" << endl;
 			}
 			catch(myClass & T){
-				T.message();
+				T.message(); //calls class method that prints error message
 			}
 			break;
 			

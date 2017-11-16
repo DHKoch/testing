@@ -24,6 +24,7 @@ class BaseConic {
 };
 
 
+
 class Ellipse : public BaseConic {
 	private:
 		double a; 	// semi-major axis
@@ -39,6 +40,7 @@ class Ellipse : public BaseConic {
 		virtual void display();
 		void Verticies();
 		virtual void Move(double nx, double ny, double nAngle);
+		virtual void Inside(int a, int b) {};
 };
 
 // Notice the default values. Those are used if no parameter is given when
@@ -53,15 +55,17 @@ Ellipse::Ellipse(double x0=0,double y0=0,double a0=0,double b0=0,double an0=0) :
 }
 
 void Ellipse::Move(double nx, double ny, double nAngle){
-	x = nx;
+	x = nx; //sets new center
 	y = ny;
 	cout << "The new center is: (" << x << "," << y << ")" << endl;
-	this->Rotate(nAngle);
-	this->Verticies();
+	this->Rotate(nAngle); //changes the angle
+	this->Verticies(); //displays new verticies
 	
 }
 
 void Ellipse::Verticies(){
+	//used to calculate the verticies based of the center of the ellipse
+	//using the major and moinor axis
 	double v1x = x + a*cos(angle);
 	double v1y = y + a*sin(angle);
 	double v2x = x - a*cos(angle);
@@ -94,10 +98,11 @@ class Circle : public BaseConic {
 };
 
 void Circle::Inside(double xp, double yp){
+	//usign distance formula and comparing it to the radius
 	double temp_xp = pow(xp,2);
 	double temp_yp = pow(yp,2);
 	double temp = pow(xp+yp,0.5);
-	if(temp < r){
+	if(temp < r){//if the distance to the point is smaller than radius the point is in the circle
 		cout << "the point (" << xp << "," << yp << ") is inside the circle" << endl;
 	}
 	else{
@@ -132,6 +137,7 @@ int main(){
 	BaseConic *bptr2 = new Ellipse(1,1,2,3,0.5);
 	BaseConic &bref1 = e5;
 	bptr1->display();
+	
 	bptr2->display();
 	bref1.display();
 	
@@ -162,6 +168,9 @@ int main(){
 	cout << "Moving the ellipse over 2 and up 1 and -1.5 radians..." << endl << endl;
 	T.Move(2,1,-1.5);
 	T.display();
+	cout << "Resizing the Ellispe to a = 3 and b = 4" << endl;
+	T.Resize(3,4);
+	T.display();
 	cout << "\nNew circle created... circle(0,0,4)" << endl << endl;
 	Circle C(0,0,4);
 	cout << "checking if point (1,1) is inside the circle..." << endl;
@@ -171,12 +180,15 @@ int main(){
 	cout << "Moving the circle over 1 and up 1" << endl;
 	C.Move(1,1);
 	C.display();
+	C.Resize(6);
+	C.display();
 	
 	BaseConic * B = &T;
 	BaseConic * B2 = &C;
 	
 	B->display();
 	B2->display();
+	
 	
 	//add more functions and more variables here
 	return 0;
