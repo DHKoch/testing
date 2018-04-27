@@ -115,7 +115,6 @@ int main(void){
   int up = 0;
   int down = 0;
   
-  Node* ptr = malloc(sizeof(Node));
   printf("Please enter the # of floors, start, finish, up #, down #:\n");
   scanf("%d %d %d %d %d",&Floors, &start, &end, &up, &down);
 
